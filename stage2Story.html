@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rookie Adventure</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"
+        integrity="sha512-uaz5GpnQoE6t5echKlX8P52czvsIGgLPcvlzfvRubLZ1Hp8JemUDnbUiAahbVtPb+jUVrNETuXvAhDDF/N3M4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.js"
+        integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="p5.play.js" type="text/javascript"></script>
+    <script defer src="https://unpkg.com/p5.collide2d"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let max_width = window.innerWidth
+        let max_height = window.innerHeight
+        let gameFont; 
+        let sound
+
+        let storyStage2 = [
+            "HELLO  were told,\n you see it with your own eyes, 'Soul' is filled with treasures and scraps ",
+            "You soon find a few sites that contain the exact materials you need to fix\n your ship with your high-tech detector ",
+            "'That person is over there!' \nYou heard them shout on your way to one of the site, you need to hurry now",
+            "As you approach closer to the site,\n you see that there are two galaxy pirates there, as if they are guarding something ",
+            "Maybe I can either (blue) do it \nstealthily from them and get what I need or I can (red) fight them \nto make them keep quiet ",
+            "It is your time to pick a side "
+
+        ]
+
+        function preload(){
+            gameFont = loadFont("font.ttf")
+            sound = loadSound("spaceSound.mp3")
+        }
+
+        function setup() {
+            createCanvas(max_width, max_height)
+            rectMode(CENTER)
+            textAlign(CENTER)
+            imageMode(CENTER)
+            textFont(gameFont)
+
+            //keep track where the story line the player is on
+            currentstoryStage2 = parseInt(sessionStorage.getItem('currentstoryStage2')) || 0;
+            displayStoryStage2();
+        }// close set up
+
+        //Stage1 Story
+        function displayStoryStage2() {
+            sound.setVolume(0.3)
+            sound.play()
+            background(0);
+            textSize(25)
+            fill("maroon")
+            text("Click to continue...", max_width / 2, max_height - 10)
+            if(currentstoryStage2 != 4){
+                fill("grey")
+            }
+            if(currentstoryStage2 == 4){
+                fill("skyblue")
+            }
+            text(storyStage2[currentstoryStage2], max_width / 2, max_height / 2);
+        }//close Stage1 Story
+        //Stage1 Story mouseClicked
+        function mouseClicked() {
+            // If there are more story parts to show
+            if (currentstoryStage2 < storyStage2.length - 1) {
+                currentstoryStage2++;
+
+                // Save the current part index to sessionStorage
+                sessionStorage.setItem('currentstoryStage2', currentstoryStage2);
+
+                // Update the display
+                displayStoryStage2();
+            }// close If there are more story parts to show
+            else {
+                // If the user is at the last part of the story, go to intro()
+                localStorage.setItem("stage", 1)
+                stage = localStorage.getItem("stage")
+                location.href = "index.html"
+            }
+        }//close Stage1 Story mouseClicked
+
+    </script>
+</body>
+
+</html>
