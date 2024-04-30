@@ -466,7 +466,11 @@ function intro() {
     strokeWeight(1)
     fill('rgba(3,40,252,0.5)')
     text("Press ENTER to start", max_width / 2, max_height / 2)
-
+    fill("blue")
+    strokeWeight(10)
+    textStyle(ITALIC)
+    text("WAIT FOR A FEW SECOND IF YOU SEE THE BROWSER IS LOADING!", max_width/2, max_height/2 + 50)
+    textStyle(NORMAL)
 }//close intro
 
 //GAME 
