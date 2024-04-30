@@ -44,7 +44,7 @@ let storyIntro = [
     "Legends say it's filled with treasures and scrap—exactly what you need to fix your ship",
     "Despite the danger, you make a split-second decision: \nyou'll make an emergency landing on 'Soul' and salvage what you can",
     "But as you descend towards the planet's surface, a sinking feeling settles in your stomach",
-    "You know these pirates, \n they thrive on chaos and revel in destruction. They've caught sight of you, and it's not just treasure they're after",
+    "You know these pirates, \n they thrive on chaos and revel in destruction. \nThey've caught sight of you, and it's not just treasure they're after",
     "They relish the chance for a kill, and you're their prime target",
     "With nerves of steel, you brace yourself for the challenge ahead",
     "Your journey home has taken an unexpected turn, \n plunging you into a thrilling adventure filled with danger, discovery, and the promise of redemption",
@@ -192,7 +192,10 @@ let jumpSound
 let coinSound
 let hitSound
 let winSound
+let winSoundplay = false
 let loseSound
+let loseSoundplay = false
+let loseSoundplay2 = false
 
 //background music
 let background_music
@@ -754,13 +757,11 @@ function stage1() {
     }//close win trigger
 
     if (playerLife <= 0) {
-        loseSound.play()
         localStorage.setItem("stage", -100)
         stage = localStorage.getItem("stage")
     }//close lose trigger
 
     if (gameTime >= timeLimit) {
-        loseSound.play()
         localStorage.setItem("stage", -100)
         stage = localStorage.getItem("stage")
     }//close lose trigger
@@ -1073,9 +1074,13 @@ function stage2() {
 
 }//close stage2
 
-
 ////////////////////////Win screen
 function winScreen() {
+    if((!winSound.isPlaying()) && (winSoundplay == false)){
+        winSound.play()
+        winSoundplay = true
+
+    }
     image(background_pic, max_width / 2, max_height / 2, max_width, max_height)
     textSize(200)
     stroke(20)
@@ -1095,6 +1100,11 @@ function goToExtra(){
 
 ////////////////////////Lose screen
 function loseScreen1() {
+    if((!loseSound.isPlaying()) && (loseSoundplay == false)){
+        loseSound.play()
+        loseSoundplay = true
+
+    }
     image(background_pic, max_width / 2, max_height / 2, max_width, max_height)
     textSize(200)
     stroke(20)
@@ -1115,6 +1125,11 @@ function loseScreen1() {
     restartStage1.mousePressed(restart)
 }//if you lose function
 function loseScreen2() {
+    if((!loseSound.isPlaying()) && (loseSoundplay2 == false)){
+        loseSound.play()
+        loseSoundplay2 = true
+
+    }
     image(background_pic, max_width / 2, max_height / 2, max_width, max_height)
     textSize(200)
     stroke(20)
