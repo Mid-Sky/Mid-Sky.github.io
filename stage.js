@@ -751,7 +751,6 @@ function stage1() {
     }// close collision of coin info
     //Triggers win or lose
     if (coinValue >= 4) {
-        winSound.play()
         //Entering Story to stage 2 
         location.href = "stage1StoryEnd.html"
     }//close win trigger
@@ -1056,7 +1055,6 @@ function stage2() {
 
     //Triggers win or lose
     if (coinValue2 >= 6) {
-        winSound.play()
         location.href = "stage2StoryEnd.html"
         // localStorage.setItem("stage", 100)
         // stage = localStorage.getItem("stage")
