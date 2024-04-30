@@ -31,16 +31,18 @@
         let background_pic
 
         let storyEndFamily = [
-            "2 were told,\n you see it with your own eyes, 'Soul' is filled with treasures and scraps ",
-            "UIWADNHAUIDHAUD contain the exact materials you need to fix\n your ship with your high-tech detector ",
-            "'2 heard them shout on your way to one of the site, you need to hurry now",
-            "As you approach closer to the site,\n you see that there are two galaxy pirates there, as if they are guarding something ",
-            "Maybe I can either (blue) do it \nstealthily from them and get what I need or I can (red) fight them \nto make them keep quiet ",
-            "2222222 end  "
+            "Arriving at your childhood home, you're greeted by the warm embrace of your parents \nand the jubilant faces of your siblings, all overjoyed to see you again",
+            "Excitement bubbles within you as you anticipate sharing tales of your adventures and experiences from the days gone by",
+            "The familiar sights and sounds of home envelop you, and for a moment, everything feels just right in the world",
+            "With a contented sigh, you draw in a deep breath, savoring the feeling of belonging and love that surrounds you",
+            "Eagerly, you step inside the house, ready to recount your stories and catch up on lost time with your cherished family",
+            "The warmth of their smiles and the comfort of their presence wash away any worries or troubles that lingered in your mind",
+            "As you settle in with your loved ones, you're reminded once again \nof the irreplaceable bond that ties you together, grateful for the haven of love and support that is your family",
+
 
         ]
 
-        function preload(){
+        function preload() {
             gameFont = loadFont("font.ttf")
             background_pic = loadImage("EndFamily.jpg")
             background_music = loadSound("spaceSound.mp3")
@@ -69,17 +71,17 @@
         //Stage1 Story
         function displayStoryEnd_Family() {
             background(0);
-            image(background_pic, max_width/2,max_height/2, max_width,max_height)
+            image(background_pic, max_width / 2, max_height / 2, max_width, max_height)
             textSize(25)
-            fill("maroon")
+            fill("red")
             text("Click to continue...", max_width / 2, max_height - 10)
-            if(currentstoryEndFamily != 4){
+            if (currentstoryEndFamily != 4) {
                 fill("white")
             }
-            if(currentstoryEndFamily == 4){
-                fill("skyblue")
+            if (currentstoryEndFamily == 4) {
+                fill("white ")
             }
-            text(storyEndFamily[currentstoryEndFamily], max_width / 2, max_height -300);
+            text(storyEndFamily[currentstoryEndFamily], max_width / 2, max_height - 300);
         }//close Stage1 Story
         //Stage1 Story mouseClicked
         function mouseClicked() {

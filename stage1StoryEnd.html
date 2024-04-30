@@ -29,16 +29,15 @@
         let gameFont
 
         let storyStage1End = [
-            "WUADAUWDAUDIAHDAUIDAHUID were told,\n you see it with your own eyes, 'Soul' is filled with treasures and scraps ",
-            "UIWADNHAUIDHAUD contain the exact materials you need to fix\n your ship with your high-tech detector ",
-            "'WADJAIWDJADAnYou heard them shout on your way to one of the site, you need to hurry now",
-            "As you approach closer to the site,\n you see that there are two galaxy pirates there, as if they are guarding something ",
-            "Maybe I can either (blue) do it \nstealthily from them and get what I need or I can (red) fight them \nto make them keep quiet ",
-            "Right  "
+            "You've managed it! Dealt with those two galaxy pirates your own way",
+            "You've collected some scraps, but they're not enough to fix the whole rocketship yet \n So, you shake your head and head to other spots to gather more materials",
+            "As you travel to new sites, you glance at the sky, wondering if you still have a chance to escape",
+            "With that thought in mind, you soon reach your next stop, ready for whatever comes next",
+            "Oh, look, it's those same galaxy pirates again, trying to bomb those scarps, Same situation, same rules \n Maybe you can use the same approach as before",
 
         ]
 
-        function preload(){
+        function preload() {
             gameFont = loadFont("font.ttf")
         }
 
@@ -60,10 +59,10 @@
             textSize(25)
             fill("maroon")
             text("Click to continue...", max_width / 2, max_height - 10)
-            if(currentstoryStage1End != 4){
+            if (currentstoryStage1End != 4) {
                 fill("grey")
             }
-            if(currentstoryStage1End == 4){
+            if (currentstoryStage1End == 4) {
                 fill("skyblue")
             }
             text(storyStage1End[currentstoryStage1End], max_width / 2, max_height / 2)

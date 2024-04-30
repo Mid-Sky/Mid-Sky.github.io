@@ -52,6 +52,7 @@ let storyIntro = [
 ]
 let backButtonIntro
 let hasActived = sessionStorage.getItem("hasActived")
+let winExtra_button
 
 // Player
 let playerX = max_width / 2 //postions of player
@@ -245,55 +246,68 @@ function setup() {
     muteButton.size(150, 20)
     muteButton.style("backgroundColor", "grey")
     muteButton.style("color", "white")
+    muteButton.style('border-radius', '12px');
     muteButton.mousePressed(toggleMute)
     audioSlider = createSlider(0, 1, 1, 0.01) // Values from 0 to 1, starting at 1, increase of 0.01
     audioSlider.position(10, max_height - 50)
+
+    winExtra_button = createButton('Extra')
+    winExtra_button.mousePressed(goToExtra)
+    winExtra_button.position(max_width / 2 - 100, max_height / 1.5 -50)
+    winExtra_button.size(200, 100)
+    winExtra_button.style("backgroundColor", "lightblue")
+    winExtra_button.style("color", "purple")
+    winExtra_button.style("font-size", "2vh")
+    winExtra_button.style('border-radius', '12px');
+    if (stage == 100){
+        winExtra_button.show()
+    }
+    else{
+        winExtra_button.hide()
+    }
 
     ///////////////Story
     ////////Intro
     //keep track where the story line the player is on
     currentstoryIntro = parseInt(sessionStorage.getItem('currentstoryIntro')) || 0
     displayStory()
-    //if backspace is pressed -- Go back
-    ////////////STILL WORK ON BACK BUTTONNNNNNNNNNNNNNNNNNNNNNNNNN
-    if (keyCode === 8) {
-        goBackIntro()
-    }
 
-    //Mode selection
+
+    //Verify selection
     mode = sessionStorage.getItem('mode') // Retrieve mode from session storage
     if (!mode) {
         selectMode()
     } else {
-        if (mode === "normal") {
+        if (mode === "Yes") {
             displayStory() // Display the story for the normal mode
         } else {
-            // Start the game for challenge mode
-            startChallenge()
+            // Go back if pressed wrong
+            startBack()
         }
     }
 } //close setup
 
 //Select Mode
 function selectMode() {
-    mode = prompt("Select mode: Enter 'normal' or 'challenge'")
-    if (mode !== "normal" && mode !== "challenge") {
-        alert("Invalid mode! Please enter 'normal' or 'challenge'.")
+    mode = prompt("Verify: Enter 'Yes' to continue or 'No' to go back")
+    if (mode !== "Yes" && mode !== "No") {
+        alert("Invalid verify! Please enter 'Yes' or 'No'.")
         selectMode() // Prompt again if the input is invalid
     } else {
-        sessionStorage.setItem('mode', mode) // Save mode to session storage
-        if (mode === "normal") {
+        // Save mode to session storage when 'Yes
+        if (mode === "Yes") {
+            sessionStorage.setItem('mode', mode)
             displayStory() // Display the story for the normal mode
         } else {
-            // Start the game for challenge mode
-            startChallenge()
+            // Go back if pressed wrong
+            startBack()
         }
     }
 }//close select mode
 
-//Challenge Mode
-function startChallenge() {
-    window.location.replace("indexChallenge.html")
+// Change Mind
+function startBack() {
+    window.location.replace("index.html")
 }
 
 
@@ -301,13 +315,20 @@ function startChallenge() {
 function displayStory() {
     background(0)
     textSize(25)
+    fill("maroon")
     text("Click to continue...", max_width / 2, max_height - 10)
+    if (currentstoryIntro != 4) {
+        fill("grey")
+    }
+    if (currentstoryIntro == 4) {
+        fill("skyblue")
+    }
     text(storyIntro[currentstoryIntro], max_width / 2, max_height / 2)
 }//close IntroStory
 
 //IntroStory mouseClicked
 function mouseClicked() {
-    if (mode === "normal") {
+    if (mode === "Yes") {
         // If there are more story parts to show
         if (currentstoryIntro < storyIntro.length - 1) {
             currentstoryIntro++
@@ -360,7 +381,7 @@ function toggleMute() {
 }//close mute or unmute
 
 function restart() {
-    window.location.replace("index.html")
+    window.location.replace("stage.html")
 }
 
 
@@ -461,7 +482,6 @@ function stage1() {
     stroke(0)
     strokeWeight(5)
     fill(255, 120, 0) //Dark orange
-    // rect(boxX, boxY, boxW, boxH)
     //Platform 1 
     image(platform, boxX, boxY, boxW, boxH)
     let value_mouse_plat1 = dist(boxX, boxY, mouseX, mouseY)
@@ -1064,8 +1084,14 @@ function winScreen() {
     rect(220, 20, 200, 200)
     fill(255)
     text("YOU WIN", max_width / 2, max_height / 2)
+    textSize(20)
+    text("You made it, \ncongratulation!", 220, 50)
 
 }//if you win function
+
+function goToExtra(){
+    window.location.replace("GameStory.html")
+}
 
 ////////////////////////Lose screen
 function loseScreen1() {
@@ -1083,6 +1109,7 @@ function loseScreen1() {
     restartStage1.style("backgroundColor", "darkred")
     restartStage1.style("color", "white")
     restartStage1.style("font-size", "3vh")
+    restartStage1.style('border-radius', '12px');
     localStorage.setItem("stage", 1)
     stage = localStorage.getItem("stage")
     restartStage1.mousePressed(restart)
@@ -1102,6 +1129,7 @@ function loseScreen2() {
     restartStage2.style("backgroundColor", "darkred")
     restartStage2.style("color", "white")
     restartStage2.style("font-size", "3vh")
+    restartStage2.style('border-radius', '12px');
     localStorage.setItem("stage", 2)
     stage = localStorage.getItem("stage")
     restartStage2.mousePressed(restart)

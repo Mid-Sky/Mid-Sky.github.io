@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rookie Adventure</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"
+        integrity="sha512-uaz5GpnQoE6t5echKlX8P52czvsIGgLPcvlzfvRubLZ1Hp8JemUDnbUiAahbVtPb+jUVrNETuXvAhDDF/N3M4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.js"
+        integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="p5.play.js" type="text/javascript"></script>
+    <script defer src="https://unpkg.com/p5.collide2d"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let max_width = window.innerWidth
+        let max_height = window.innerHeight
+        let gameFont
+        let gameStory = [
+            "Ten months have passed since the crisis in 'Soul,' and in that time, you've learned to be cunning",
+            "Equipping your rocketship with weapons became a priority, a necessary defense against the ever-looming threat of the galaxy pirates",
+            "Today, as you bid farewell to your family and set out on your journey, you brace yourself for the inevitable encounter",
+            "Sure enough, the pirates locate you once more, but this time, you refuse to cower in fear",
+            "With determination burning in your veins, you engage them in battle, no longer willing to be their prey",
+            "As the clash ensues, you fight not just for survival, but for the freedom to traverse the stars without fear, carving your path through the cosmos with defiance",
+            " ",
+        ]
+        let currentgameStory = 0
+        let normalButton
+        let challengeButton
+        let infiniteButton
+
+        function preload() {
+            gameFont = loadFont("font.ttf")
+            background_pic = loadImage("gameBG.jpg")
+        }
+
+        function setup() {
+            createCanvas(max_width, max_height)
+            rectMode(CENTER)
+            textAlign(CENTER)
+            imageMode(CENTER)
+            textFont(gameFont)
+
+            // Create buttons for "Family" and "Safety"
+            normalButton = createButton('<b><i>Normal</b></i> <br> Defeat 20 enemies')
+            normalButton.mousePressed(goToGame_normal)
+            normalButton.position(max_width / 4, max_height / 1.5)
+            normalButton.size(200, 100)
+            normalButton.style("backgroundColor", "lightgreen")
+            normalButton.style("color", "purple")
+            normalButton.style("font-size", "2vh")
+            normalButton.style('border-radius', '12px');
+
+
+            challengeButton = createButton('<b><i>Challenge</b></i> <br> Defeat 50 enemies')
+            challengeButton.mousePressed(goToGame_challenge)
+            challengeButton.position(max_width / 1.5, max_height / 1.5)
+            challengeButton.size(200, 100)
+            challengeButton.style("backgroundColor", "lightblue")
+            challengeButton.style("color", "purple")
+            challengeButton.style("font-size", "2vh")
+            challengeButton.style('border-radius', '12px');
+
+            infiniteButton = createButton('<b><i>Infinite</b></i> <br> Endless')
+            infiniteButton.mousePressed(goToGame_infinite)
+            infiniteButton.position(max_width / 2.2, max_height / 1.5)
+            infiniteButton.size(200, 100)
+            infiniteButton.style("backgroundColor", "lightred")
+            infiniteButton.style("color", "purple")
+            infiniteButton.style("font-size", "2vh")
+            infiniteButton.style('border-radius', '12px');
+
+
+            currentgameStory = parseInt(sessionStorage.getItem('currentgameStory')) || 0;
+            displaygameStory()
+        }
+
+        function displaygameStory() {
+            background(0)
+            image(background_pic, max_width / 2, max_height / 2, max_width, max_height)
+            textSize(25)
+            fill("maroon")
+            text("Click to continue...", max_width / 2, max_height - 10)
+            if (currentgameStory != 4) {
+                fill("lightpink")
+            }
+            if (currentgameStory == 4) {
+                fill("skyblue")
+            }
+            text(gameStory[currentgameStory], max_width / 2, max_height / 2)
+
+            if (currentgameStory === gameStory.length - 1) {
+                // Show buttons for "Family" and "Safety"
+
+                textSize(30)
+                fill(255, 255, 0)
+                text("Instruction: \n Move your mouse to move left or right \n Left click to shoot ammo", max_width / 2, max_height / 2)
+                normalButton.show()
+                challengeButton.show()
+                infiniteButton.show()
+
+            } else {
+                // Hide buttons if it's not the last line
+                normalButton.hide()
+                challengeButton.hide()
+                infiniteButton.hide()
+            }
+        }
+
+        function goToGame_normal() {
+            //set goal
+            localStorage.setItem("win_goal", 20)
+            location.href = 'Game.html'
+        }
+
+        function goToGame_challenge() {
+            //set goal
+            localStorage.setItem("win_goal", 50)
+            location.href = 'Game.html'
+        }
+        function goToGame_infinite() {
+            //set goal
+            localStorage.setItem("win_goal", 9999999)
+            location.href = 'Game.html'
+        }
+
+        function mouseClicked() {
+            if (currentgameStory < gameStory.length - 1) {
+                currentgameStory++
+                // Save the current part index to sessionStorage
+                sessionStorage.setItem('currentgameStory', currentgameStory);
+                displaygameStory()
+            }
+        }
+    </script>
+</body>
+
+</html>

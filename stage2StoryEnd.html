@@ -27,20 +27,20 @@
         let max_width = window.innerWidth
         let max_height = window.innerHeight
 
-        let gameFont; 
+        let gameFont;
 
         let storyStage2End = [
-            "2 were told,\n you see it with your own eyes, 'Soul' is filled with treasures and scraps ",
-            "UIWADNHAUIDHAUD contain the exact materials you need to fix\n your ship with your high-tech detector ",
-            "'2 heard them shout on your way to one of the site, you need to hurry now",
-            "As you approach closer to the site,\n you see that there are two galaxy pirates there, as if they are guarding something ",
-            "Maybe I can either (blue) do it \nstealthily from them and get what I need or I can (red) fight them \nto make them keep quiet ",
-            "2222222 end  "
-
+            "Hooray! You've gathered all the necessary components. It's time to head back to your rocketship",
+            "After a tiring journey on foot, you finally arrive back at your rocketship's location",
+            "You're eager to evade the galaxy pirates without a moment's delay. You dive straight into repairs, determined to finish before nightfall",
+            "As you work hard to fix your rocketship, the noise you make catches the attention of the galaxy pirates nearby. \n They start closing in quickly, spurred by the sound of your efforts",
+            "Feeling the pressure mounting, you rush to complete the repairs, knowing time is running out",
+            "Finally, as night begins to fall, you finish the last adjustments and sprint to your rocketship",
+            "The pirates' shouts grow louder as you ignite the engines and hastily blast off, leaving them behind in a cloud of dust",
         ]
-        let backButtonStage1End 
+        let backButtonStage1End
 
-        function preload(){
+        function preload() {
             gameFont = loadFont("font.ttf")
         }
 
@@ -62,11 +62,11 @@
             textSize(25)
             fill("maroon")
             text("Click to continue...", max_width / 2, max_height - 10)
-            if(currentstoryStage2End != 4){
+            if (currentstoryStage2End != 4) {
                 fill("grey")
             }
-            if(currentstoryStage2End == 4){
-                fill("skyblue")
+            if (currentstoryStage2End == 4) {
+                fill("grey")
             }
             text(storyStage2End[currentstoryStage2End], max_width / 2, max_height / 2);
         }//close Stage1 Story
@@ -88,20 +88,6 @@
                 location.href = "stage2StoryEndDecision.html"
             }
         }//close Stage1 Story mouseClicked
-
-        //Stage1 Story goBackIntro
-        function goBackStage1() {
-            // Ensure we are not at the beginning of the story
-            if (currentstoryStage2End > 0) {
-                currentstoryStage2End--;
-
-                // Save the current part index to sessionStorage
-                sessionStorage.setItem('currentstoryStage2End', currentstoryStage2End);
-
-                // Update the display
-                displayStoryStage1End();
-            }
-        }
     </script>
 </body>
 

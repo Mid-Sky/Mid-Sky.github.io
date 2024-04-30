@@ -32,12 +32,13 @@
         let background_music
 
         let storyEndSafety = [
-            "2 were told,\n you see it with your own eyes, 'Soul' is filled with treasures and scraps ",
-            "UIWADNHAUIDHAUD contain the exact materials you need to fix\n your ship with your high-tech detector ",
-            "'2 heard them shout on your way to one of the site, you need to hurry now",
-            "As you approach closer to the site,\n you see that there are two galaxy pirates there, as if they are guarding something ",
-            "Maybe I can either (blue) do it \nstealthily from them and get what I need or I can (red) fight them \nto make them keep quiet ",
-            "2222222 end  "
+            "Standing outside your family home, you can't shake the nagging feeling of guilt and responsibility weighing heavily on your heart",
+            "Despite the joyous welcome that awaits inside, \nyou can't help but feel a sense of unease at the thought of bringing danger and turmoil into your family's peaceful existence",
+            "With a heavy heart, you realize that the safest choice for your loved ones \nis for you to keep your distance, to shield them from the perils of your nomadic lifestyle",
+            "Suppressing the urge to stay and bask in the warmth of familial love,\n you steel yourself to resume your solitary journey through the vast expanse of space",
+            "Each step away from the familiar comfort of home is laden with a profound sadness, \nknowing that your departure brings both relief and heartache to those you hold dear",
+            "Despite the ache in your soul, \nyou remind yourself that protecting your family means sacrificing your own desires for the greater good",
+            "With a heavy heart and tear-filled eyes, you bid a silent farewell to your family, \nsetting forth once more into the unknown, resigned to the solitude that accompanies the life of a spacefarer",
         ]
 
         function preload() {
@@ -73,7 +74,7 @@
                 fill("white")
             }
             if (currentstoryEndSafety == 4) {
-                fill("skyblue")
+                fill("white")
             }
             text(storyEndSafety[currentstoryEndSafety], max_width / 2, max_height - 300);
         }

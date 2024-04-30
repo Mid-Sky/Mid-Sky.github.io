@@ -28,12 +28,12 @@
         let max_height = window.innerHeight
         let gameFont
         let storyStage2EndD = [
-            "Stage 2 End DECISION 2 End,\n you see it with your own eyes, 'Soul' is filled with treasures and scraps ",
-            "UIWADNHAUIDHAUD Stage 2 End DECISION the exact materials you need to fix\n your ship with your high-tech detector ",
-            "'WADJAIWDJADAnYStage 2 End DECISIONou heard them shout on your way to one of the site, you need to hurry now",
-            "As you Stage 2 End DECISIONStage 2 End DECISIONStage 2 End DECISIONStage 2 End DECISION closer to the site,\n you see that there are two galaxy pirates there, as if they are guarding something ",
-            "Maybe I can either (blue) do it \nstealthily from them and get what I need or I can (red) fight them \nto make them keep quiet ",
-            "Stage 2 End DECISION"
+            "As you soared beyond the atmosphere, a big question popped into your head: \nShould you keep heading to visit your family, even though those galaxy pirates might be following you?",
+            "On one hand, you really wanted to see your family again",
+            "But on the other hand, you were worried about staying safe with the pirates around",
+            "You felt torn between these two choices, unsure of what to do next",
+            "It was a tough decision, one that could affect where you go next and what happens to you out here in space",
+            "Your turn to pick the future."
         ]
         let currentstoryStage2EndD = 0
         let familyButton, safetyButton
@@ -57,6 +57,7 @@
             familyButton.style("backgroundColor", "lightgreen")
             familyButton.style("color", "purple")
             familyButton.style("font-size", "2vh")
+            familyButton.style('border-radius', '12px');
 
             safetyButton = createButton('Safety')
             safetyButton.mousePressed(goToSafety)
@@ -65,6 +66,7 @@
             safetyButton.style("backgroundColor", "lightblue")
             safetyButton.style("color", "purple")
             safetyButton.style("font-size", "2vh")
+            safetyButton.style('border-radius', '12px');
 
             currentstoryStage2EndD = parseInt(sessionStorage.getItem('currentstoryStage2EndD')) || 0;
             displayStoryStage2EndD()
@@ -75,18 +77,20 @@
             textSize(25)
             fill("maroon")
             text("Click to continue...", max_width / 2, max_height - 10)
-            if(currentstoryStage2EndD != 4){
+            if (currentstoryStage2EndD != 4) {
                 fill("grey")
             }
-            if(currentstoryStage2EndD == 4){
+            if (currentstoryStage2EndD == 4) {
                 fill("skyblue")
             }
             text(storyStage2EndD[currentstoryStage2EndD], max_width / 2, max_height / 2)
 
             if (currentstoryStage2EndD === storyStage2EndD.length - 1) {
                 // Show buttons for "Family" and "Safety"
+
                 familyButton.show()
                 safetyButton.show()
+
             } else {
                 // Hide buttons if it's not the last line
                 familyButton.hide()
@@ -95,11 +99,11 @@
         }
 
         function goToFamily() {
-            location.href = 'stageStoryEnd_Family.html'
+            window.location.replace('stageStoryEnd_Family.html')
         }
 
         function goToSafety() {
-            location.href = 'stageStoryEnd_Safety.html'
+            window.location.replace('stageStoryEnd_Safety.html')
         }
 
         function mouseClicked() {
@@ -108,7 +112,7 @@
                 // Save the current part index to sessionStorage
                 sessionStorage.setItem('currentstoryStage2EndD', currentstoryStage2EndD);
                 displayStoryStage2EndD()
-            } 
+            }
         }
     </script>
 </body>

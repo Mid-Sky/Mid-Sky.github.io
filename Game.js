@@ -1,3 +1,11 @@
+function warnOnRefresh(event) {
+    // Display a confirmation dialog
+    var confirmationMessage = 'Are you sure you want to refresh?';
+    event.returnValue = confirmationMessage; 
+    return confirmationMessage; 
+  }
+  window.addEventListener('beforeunload', warnOnRefresh);
+
 let w = window.innerWidth
 let h = window.innerHeight
 let bullet_enemy_size = 25
@@ -9,16 +17,26 @@ let healthPatches = []
 let score = 0
 let health = 3
 let healthColor = "rgba(0,255,0,0.2)"
-let win_goal = 1
-let win_goal_show = 10
+let winGoal_load = localStorage.getItem("win_goal")
+let win_goal = winGoal_load
+let win_goal_show = winGoal_load
+
+let spawnInterval = 60; 
+let spawnRateIncrease = 0.95; 
 
 function preload() {
-    bullet_img = loadImage("bullet.png")
+    bullet_img = loadImage("fire.png")
     enemy_img = loadImage("Enemy_1_wizard.png")
     medic_kit = loadImage("Medic_kit.png")
+    player = loadImage("rocketShip.png")
+    background_pic = loadImage("gameBG.jpg")
 }
 function setup() {
     createCanvas(w, h)
+    rectMode(CENTER)
+    textAlign(CENTER)
+    imageMode(CENTER)
+
     //spawn enemies
     for (i = 0; i < 10; i++) {
         let enemy = {
@@ -40,17 +58,31 @@ function setup() {
 function draw() {
     clear()
     background(50)
+    image(background_pic, w / 2, h / 2, w, h)
     rectMode(CENTER)
     //player to move on x axis
     fill(255)
-    circle(mouseX, h - 25, 50)
+    image(player, mouseX, h - 75 / 2, 75, 150)
+
+    if (frameCount % spawnInterval === 0) {
+        spawnEnemy();
+        spawnInterval *= spawnRateIncrease; // Decrease spawn interval
+    }
+    function spawnEnemy() {
+        let enemy = {
+            x: random(0, width),
+            y: random(0, -2 * height) // Adjusted to use height instead of h
+        };
+        enemies.push(enemy);
+    }
+    
 
     //For every bullet inside the array bullet (updates and draws the bullet)
     for (let bullet of bullets) {
         if (bullet.y > 0) {
             bullet.y -= 20
             imageMode(CENTER);
-            image(bullet_img, bullet.x, bullet.y, bullet_enemy_size)
+            image(bullet_img, bullet.x, bullet.y, 100, 200)
         }
     }
     //For every enemy inside the array enemies (updates and draws the enemy
@@ -80,37 +112,41 @@ function draw() {
     }
 
     //collisions with bullets and enemies
-    for (let enemy of enemies) {
-        for (let bullet of bullets) {
-            if (dist(enemy.x, enemy.y, bullet.x, bullet.y) < bullet_enemy_size) {
-                enemies.splice(enemies.indexOf(enemy), 1)
-                bullets.splice(bullets.indexOf(bullet), 1)
-                let newEnemy = {
-                    x: random(0, width),
-                    y: random(0, -2 * h)
-                }
-                enemies.push(newEnemy)
-                score++
-                win_goal_show--
-                //Exit the page (Win)
-                if (score == win_goal) {
-                    localStorage.setItem('winStatus', 'win');
-                    noLoop()
-                    textSize(40)
-                    textStyle(BOLD)
-                    textAlign(CENTER)
-                    text("You Win ", w / 2, h / 2)
-                    text("Teleporting...", w / 2, h / 1.5)
-                    setTimeout(() => {
-                        // When player wins
-                        location.href = "index.html"
-                            ;
+    for (let i = enemies.length - 1; i >= 0; i--) {
+        let enemy = enemies[i];
+        // Check if enemy is within the canvas bounds
+        if (enemy.y > 0 && enemy.y < height) {
+            for (let j = bullets.length - 1; j >= 0; j--) {
+                let bullet = bullets[j];
+                if (dist(enemy.x, enemy.y, bullet.x, bullet.y) < bullet_enemy_size) {
+                    enemies.splice(i, 1);
+                    bullets.splice(j, 1);
+                    let newEnemy = {
+                        x: random(0, width),
+                        y: random(0, -2 * h)
+                    };
+                    enemies.push(newEnemy);
+                    score++;
+                    win_goal_show--;
+                    //Exit the page (Win)
+                    if (score == win_goal) {
+                        localStorage.setItem('winStatus', 'win');
+                        noLoop();
+                        textSize(40);
+                        textStyle(BOLD);
+                        textAlign(CENTER);
+                        text("You Win ", w / 2, h / 2);
+                        text("Teleporting...", w / 2, h / 1.5);
+                        setTimeout(() => {
+                            // When player wins
+                            location.href = "index.html";
+                        }, 3000);
                     }
-                        , 3000);
                 }
             }
         }
     }
+
 
     // For every health patch in the array 
     for (let healthPatch of healthPatches) {
