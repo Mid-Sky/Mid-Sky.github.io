@@ -52,20 +52,6 @@ let storyIntro = [
 ]
 let backButtonIntro
 let hasActived = sessionStorage.getItem("hasActived")
-let storyEnd = [
-    "TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEE,\n the hum of your rocketship's engines fills you with excitement",
-    "But just when you're almost home, chaos erupts! \nAlarms blare, lights flash, and your ship jerks violently as space pirates launch a surprise attack. \n It's terrifying, and you know you're in trouble",
-    "With your heart pounding, you glance at the dashboard, \nwhere red icons flash ominously. It's clear, your ship won't hold out for long",
-    "Frantically, you search for a solution. That's when you spot 'Soul', a planet shimmering in the distance.",
-    "Legends say it's filled with treasures and scrap—exactly what you need to fix your ship",
-    "Despite the danger, you make a split-second decision: \nyou'll make an emergency landing on 'Soul' and salvage what you can",
-    "But as you descend towards the planet's surface, a sinking feeling settles in your stomach",
-    "You know these pirates, \n they thrive on chaos and revel in destruction. They've caught sight of you, and it's not just treasure they're after",
-    "They relish the chance for a kill, and you're their prime target",
-    "With nerves of steel, you brace yourself for the challenge ahead",
-    "Your journey home has taken an unexpected turn, \n plunging you into a thrilling adventure filled with danger, discovery, and the promise of redemption",
-    "YESSSSSS, \n you steel yourself for whatever lies ahead as you embark on your daring quest to save your ship, \n and reach your long-awaited destination — home."
-]
 
 // Player
 let playerX = max_width / 2 //postions of player
